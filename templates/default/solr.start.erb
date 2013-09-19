@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd <%= @solr_dir %>/example
+COMMAND="java -Xms128M -Xmx512M -Dsolr.solr.home=<%= @solr_home %> -Djetty.port=8984 -jar start.jar"
+nohup $COMMAND > <%= @log_file %> 2>&1 &
+echo $! > <%= @pid_file %>
+exit $?
