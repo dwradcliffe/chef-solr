@@ -45,7 +45,7 @@ template "/var/lib/solr.start" do
 end
 
 template "/etc/init.d/solr" do
-  source "solr.initd.erb"
+  source "initd.erb"
   owner "root"
   group "root"
   mode "0755"
