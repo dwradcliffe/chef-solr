@@ -5,7 +5,7 @@
 # Copyright 2013, David Radcliffe
 #
 
-include_recipe "java"
+include_recipe 'java'
 
 src_filename = ::File.basename(node['solr']['url'])
 src_filepath = "#{Chef::Config['file_cache_path']}/#{src_filename}"
@@ -16,7 +16,7 @@ remote_file src_filepath do
   action :create_if_missing
 end
 
-bash "unpack_solr" do
+bash 'unpack_solr' do
   cwd ::File.dirname(src_filepath)
   code <<-EOH
     mkdir -p #{extract_path}
@@ -26,32 +26,32 @@ bash "unpack_solr" do
 end
 
 directory node['solr']['data_dir'] do
-  owner "root"
-  group "root"
+  owner 'root'
+  group 'root'
   action :create
 end
 
-template "/var/lib/solr.start" do
-  source "solr.start.erb"
-  owner "root"
-  group "root"
-  mode "0755"
-  variables({
+template '/var/lib/solr.start' do
+  source 'solr.start.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  variables(
     :solr_dir => extract_path,
     :solr_home => node['solr']['data_dir'],
-    :pid_file => "/var/run/solr.pid",
-    :log_file => "/var/log/solr.log"
-  })
+    :pid_file => '/var/run/solr.pid',
+    :log_file => '/var/log/solr.log'
+  )
 end
 
-template "/etc/init.d/solr" do
-  source "initd.erb"
-  owner "root"
-  group "root"
-  mode "0755"
+template '/etc/init.d/solr' do
+  source 'initd.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
 end
 
-service "solr" do
+service 'solr' do
   supports :restart => true, :status => true
-  action [ :enable, :start ]
+  action [:enable, :start]
 end
