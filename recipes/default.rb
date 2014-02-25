@@ -20,7 +20,7 @@ bash 'unpack_solr' do
   cwd ::File.dirname(src_filepath)
   code <<-EOH
     mkdir -p #{extract_path}
-    tar xzf #{src_filename} -C #{extract_path}
+    tar xzf #{src_filename} -C #{extract_path} --strip 1
   EOH
   not_if { ::File.exists?(extract_path) }
 end
