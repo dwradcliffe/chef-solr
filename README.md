@@ -11,6 +11,7 @@ Installs [solr](http://lucene.apache.org/solr/) and starts the service.
 - `node['solr']['version']` - Version of solr to install
 - `node['solr']['url']` - Url of solr source to download
 - `node['solr']['data_dir']` - Location for solr data and config
+- `node['solr']['dir']` - Location of the solr sorce files
 
 
 ## License and Author
