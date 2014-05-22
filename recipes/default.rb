@@ -22,7 +22,7 @@ bash 'unpack_solr' do
     mkdir -p #{extract_path}
     tar xzf #{src_filename} -C #{extract_path} --strip 1
   EOH
-  not_if { ::File.exists?(extract_path) }
+  not_if { ::File.exist?(extract_path) }
 end
 
 directory node['solr']['data_dir'] do
