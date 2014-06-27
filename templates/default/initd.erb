@@ -25,7 +25,6 @@ start() {
     if [ -f $PIDFILE ]; then
         PID=`cat $PIDFILE`
         echo $NAME already running: $PID
-        exit 2;
     else
         action "Starting ${NAME}: " daemon --pidfile $PIDFILE /var/lib/solr.start
     fi
