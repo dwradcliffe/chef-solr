@@ -15,6 +15,8 @@ Installs [solr](http://lucene.apache.org/solr/) and starts the service.
 - `node['solr']['port']` - The port the solr service is bound to
 - `node['solr']['pid_file']` - The location for the pid file
 - `node['solr']['log_file']` - The location for the log file
+- `node['solr']['install_java']` - Installs Java via the community cookbook.
+  Default `true`.
 
 
 ## License and Author

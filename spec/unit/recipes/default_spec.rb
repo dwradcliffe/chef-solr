@@ -23,4 +23,15 @@ describe 'solr::default' do
     expect(chef_run).to start_service('solr')
   end
 
+  context 'no java' do
+    let(:chef_run) do
+      runner = ChefSpec::Runner.new
+      runner.node.set['solr']['install_java'] = false
+      runner.converge(described_recipe)
+    end
+
+    it 'should include the java recipe' do
+      expect(chef_run).to_not include_recipe('java')
+    end
+  end
 end

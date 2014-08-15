@@ -7,7 +7,7 @@
 
 include_recipe 'apt::default'
 
-include_recipe 'java'
+include_recipe 'java' if node['solr']['install_java']
 
 src_filename = ::File.basename(node['solr']['url'])
 src_filepath = "#{Chef::Config['file_cache_path']}/#{src_filename}"
