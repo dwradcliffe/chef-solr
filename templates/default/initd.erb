@@ -13,9 +13,9 @@
 # source function library
 . /etc/rc.d/init.d/functions
 
-PIDFILE=/var/run/solr.pid
+PIDFILE=<%= @pid_file %>
 
-LOG_FILE=/var/log/solr.log
+LOG_FILE=<%= @log_file %>
 
 NAME="Solr"
 

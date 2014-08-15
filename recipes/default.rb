@@ -5,6 +5,8 @@
 # Copyright 2013, David Radcliffe
 #
 
+include_recipe 'apt::default'
+
 include_recipe 'java'
 
 src_filename = ::File.basename(node['solr']['url'])
@@ -41,16 +43,24 @@ template '/var/lib/solr.start' do
     :solr_dir => extract_path,
     :solr_home => node['solr']['data_dir'],
     :port => node['solr']['port'],
-    :pid_file => '/var/run/solr.pid',
-    :log_file => '/var/log/solr.log'
+    :pid_file => node['solr']['pid_file'],
+    :log_file => node['solr']['log_file']
   )
+  only_if { !platform_family?('debian') }
 end
 
 template '/etc/init.d/solr' do
-  source 'initd.erb'
+  source platform_family?('debian') ? 'initd.debian.erb' : 'initd.erb'
   owner 'root'
   group 'root'
   mode '0755'
+  variables(
+    :solr_dir => extract_path,
+    :solr_home => node['solr']['data_dir'],
+    :port => node['solr']['port'],
+    :pid_file => node['solr']['pid_file'],
+    :log_file => node['solr']['log_file']
+  )
 end
 
 service 'solr' do

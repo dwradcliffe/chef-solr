@@ -13,6 +13,8 @@ Installs [solr](http://lucene.apache.org/solr/) and starts the service.
 - `node['solr']['data_dir']` - Location for solr data and config
 - `node['solr']['dir']` - Location of the solr sorce files
 - `node['solr']['port']` - The port the solr service is bound to
+- `node['solr']['pid_file']` - The location for the pid file
+- `node['solr']['log_file']` - The location for the log file
 
 
 ## License and Author
