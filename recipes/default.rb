@@ -28,6 +28,7 @@ end
 directory node['solr']['data_dir'] do
   owner 'root'
   group 'root'
+  recursive true
   action :create
 end
 
