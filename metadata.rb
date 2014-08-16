@@ -4,7 +4,7 @@ maintainer_email 'radcliffe.david@gmail.com'
 license          'MIT'
 description      'Installs the solr search engine.'
 long_description 'See README.md'
-version          '0.2.0'
+version          '0.3.0'
 
 supports 'amazon'
 supports 'centos'
