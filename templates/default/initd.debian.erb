@@ -16,10 +16,11 @@ SOLR_DIR=<%= @solr_dir %>/example
 PORT=<%= @port %>
 PIDFILE=<%= @pid_file %>
 LOGFIlE=<%= @log_file %>
+JAVA_OPTS=<%= @java_options %>
 DESC="start/stop Solr Server"
 NAME=solr
 DAEMON=/usr/bin/java
-DAEMON_ARGS="-Xms128M -Xmx512M -Dsolr.solr.home=$SOLR_HOME -Djetty.port=$PORT -jar start.jar"
+DAEMON_ARGS="$JAVA_OPTS -Dsolr.solr.home=$SOLR_HOME -Djetty.port=$PORT -jar start.jar"
 SCRIPTNAME=/etc/init.d/$NAME
 
 # Exit gracefully if the package is not installed
