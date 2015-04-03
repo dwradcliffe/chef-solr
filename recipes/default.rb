@@ -23,13 +23,14 @@ bash 'unpack_solr' do
   code <<-EOH
     mkdir -p #{extract_path}
     tar xzf #{src_filename} -C #{extract_path} --strip 1
+    chown -R #{node['solr']['user']}:#{node['solr']['group']} #{extract_path}
   EOH
   not_if { ::File.exist?(extract_path) }
 end
 
 directory node['solr']['data_dir'] do
-  owner 'root'
-  group 'root'
+  owner node['solr']['user']
+  group node['solr']['group']
   recursive true
   action :create
 end
@@ -44,7 +45,8 @@ template '/var/lib/solr.start' do
     :solr_home => node['solr']['data_dir'],
     :port => node['solr']['port'],
     :pid_file => node['solr']['pid_file'],
-    :log_file => node['solr']['log_file']
+    :log_file => node['solr']['log_file'],
+    :user => node['solr']['user']
   )
   only_if { !platform_family?('debian') }
 end
@@ -59,7 +61,8 @@ template '/etc/init.d/solr' do
     :solr_home => node['solr']['data_dir'],
     :port => node['solr']['port'],
     :pid_file => node['solr']['pid_file'],
-    :log_file => node['solr']['log_file']
+    :log_file => node['solr']['log_file'],
+    :user => node['solr']['user']
   )
 end
 

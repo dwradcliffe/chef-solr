@@ -12,4 +12,6 @@ default['solr']['dir']      = '/opt/solr'
 default['solr']['port']     = '8984'
 default['solr']['pid_file'] = '/var/run/solr.pid'
 default['solr']['log_file'] = '/var/log/solr.log'
+default['solr']['user']     = 'root'
+default['solr']['group']    = 'root'
 default['solr']['install_java'] = true
