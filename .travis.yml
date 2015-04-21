@@ -1,8 +1,7 @@
 language: ruby
 bundler_args: --without kitchen
 rvm:
-  - 1.9.3
-  - 2.0.0
+  - 2.1.6
 script:
   - bundle exec rubocop
   - bundle exec foodcritic -f any .
