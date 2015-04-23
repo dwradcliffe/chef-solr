@@ -45,8 +45,7 @@ template '/var/lib/solr.start' do
     :solr_home => node['solr']['data_dir'],
     :port => node['solr']['port'],
     :pid_file => node['solr']['pid_file'],
-    :log_file => node['solr']['log_file'],
-    :user => node['solr']['user']
+    :log_file => node['solr']['log_file']
   )
   only_if { !platform_family?('debian') }
 end
