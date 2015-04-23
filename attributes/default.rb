@@ -15,3 +15,4 @@ default['solr']['log_file'] = '/var/log/solr.log'
 default['solr']['user']     = 'root'
 default['solr']['group']    = 'root'
 default['solr']['install_java'] = true
+default['solr']['java_options'] = '-Xms128M -Xmx512M'
