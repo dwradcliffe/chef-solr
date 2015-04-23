@@ -30,7 +30,7 @@ describe 'solr::default' do
       runner.converge(described_recipe)
     end
 
-    it 'should include the java recipe' do
+    it 'should not include the java recipe' do
       expect(chef_run).to_not include_recipe('java')
     end
   end
