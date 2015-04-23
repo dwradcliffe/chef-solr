@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'solr::default' do
-  let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
+  let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
   it 'includes the java recipe' do
     expect(chef_run).to include_recipe('java')
@@ -25,7 +25,7 @@ describe 'solr::default' do
 
   context 'no java' do
     let(:chef_run) do
-      runner = ChefSpec::Runner.new
+      runner = ChefSpec::SoloRunner.new
       runner.node.set['solr']['install_java'] = false
       runner.converge(described_recipe)
     end
