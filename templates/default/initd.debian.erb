@@ -17,7 +17,7 @@ PORT=<%= @port %>
 PIDFILE=<%= @pid_file %>
 LOGFIlE=<%= @log_file %>
 USER=<%= @user %>
-JAVA_OPTS=<%= @java_options %>
+JAVA_OPTS="<%= @java_options %>"
 DESC="start/stop Solr Server"
 NAME=solr
 DAEMON=/usr/bin/java
