@@ -14,4 +14,5 @@ supports 'scientific'
 supports 'ubuntu'
 
 depends 'apt'
+depends 'ark'
 depends 'java'

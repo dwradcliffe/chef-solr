@@ -10,24 +10,18 @@ if node['solr']['install_java']
   include_recipe 'java'
 end
 
-src_filename = ::File.basename(node['solr']['url'])
-src_filepath = "#{Chef::Config['file_cache_path']}/#{src_filename}"
 extract_path = "#{node['solr']['dir']}-#{node['solr']['version']}"
 solr_path = "#{extract_path}/#{node['solr']['version'].split('.')[0].to_i < 5 ? 'example' : 'server'}"
 
-remote_file src_filepath do
-  source node['solr']['url']
-  action :create_if_missing
-end
-
-bash 'unpack_solr' do
-  cwd ::File.dirname(src_filepath)
-  code <<-EOH
-    mkdir -p #{extract_path}
-    tar xzf #{src_filename} -C #{extract_path} --strip 1
-    chown -R #{node['solr']['user']}:#{node['solr']['group']} #{extract_path}
-  EOH
-  not_if { ::File.exist?(extract_path) }
+ark 'solr' do
+  url node['solr']['url']
+  version node['solr']['version']
+  checksum node['solr']['checksum']
+  path node['solr']['dir']
+  prefix_root '/opt'
+  prefix_home '/opt'
+  owner node['solr']['user']
+  action :install
 end
 
 directory node['solr']['data_dir'] do
