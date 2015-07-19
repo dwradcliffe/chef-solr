@@ -3,7 +3,7 @@ maintainer       'David Radcliffe'
 maintainer_email 'radcliffe.david@gmail.com'
 license          'MIT'
 description      'Installs the solr search engine.'
-long_description 'See README.md'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.4.0'
 
 supports 'amazon'
