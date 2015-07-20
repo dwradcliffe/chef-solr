@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd <%= @solr_dir %>/example
+cd <%= @solr_dir %>
 COMMAND="java <%= @java_options %> -Dsolr.solr.home=<%= @solr_home %> -Djetty.port=<%= @port %> -jar start.jar"
 nohup $COMMAND > <%= @log_file %> 2>&1 &
 echo $! > <%= @pid_file %>
