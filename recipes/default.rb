@@ -13,6 +13,7 @@ end
 src_filename = ::File.basename(node['solr']['url'])
 src_filepath = "#{Chef::Config['file_cache_path']}/#{src_filename}"
 extract_path = "#{node['solr']['dir']}-#{node['solr']['version']}"
+solr_path = "#{extract_path}/#{node['solr']['version'].split('.')[0].to_i < 5 ? 'example' : 'server'}"
 
 remote_file src_filepath do
   source node['solr']['url']
@@ -42,7 +43,7 @@ template '/var/lib/solr.start' do
   group 'root'
   mode '0755'
   variables(
-    :solr_dir => extract_path,
+    :solr_dir => solr_path,
     :solr_home => node['solr']['data_dir'],
     :port => node['solr']['port'],
     :pid_file => node['solr']['pid_file'],
@@ -58,7 +59,7 @@ template '/etc/init.d/solr' do
   group 'root'
   mode '0755'
   variables(
-    :solr_dir => extract_path,
+    :solr_dir => solr_path,
     :solr_home => node['solr']['data_dir'],
     :port => node['solr']['port'],
     :pid_file => node['solr']['pid_file'],
