@@ -15,3 +15,6 @@ supports 'ubuntu'
 
 depends 'apt'
 depends 'java'
+
+source_url 'https://github.com/dwradcliffe/chef-solr' if respond_to?(:source_url)
+issues_url 'https://github.com/dwradcliffe/chef-solr/issues' if respond_to?(:issues_url)
