@@ -1,10 +1,22 @@
 require 'spec_helper'
 
 describe 'solr::default' do
-  let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
+  let(:chef_run) { ChefSpec::SoloRunner.new(step_into: ['ark']).converge(described_recipe) }
+
+  it 'includes the apt recipe' do
+    expect(chef_run).to include_recipe('apt')
+  end
 
   it 'includes the java recipe' do
     expect(chef_run).to include_recipe('java')
+  end
+
+  it 'downloads and unpacks solr release tarball' do
+    expect(chef_run).to install_ark('solr')
+  end
+
+  it 'creates data directory /etc/solr' do
+    expect(chef_run).to create_directory('/etc/solr')
   end
 
   it 'renders the start script' do
@@ -28,6 +40,10 @@ describe 'solr::default' do
       runner = ChefSpec::SoloRunner.new
       runner.node.set['solr']['install_java'] = false
       runner.converge(described_recipe)
+    end
+
+    it 'should not include the apt recipe' do
+      expect(chef_run).to_not include_recipe('apt')
     end
 
     it 'should not include the java recipe' do

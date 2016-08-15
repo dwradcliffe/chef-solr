@@ -14,6 +14,7 @@ supports 'scientific'
 supports 'ubuntu'
 
 depends 'apt'
+depends 'ark'
 depends 'java'
 
 source_url 'https://github.com/dwradcliffe/chef-solr' if respond_to?(:source_url)
