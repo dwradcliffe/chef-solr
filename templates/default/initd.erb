@@ -23,8 +23,12 @@ DESC="start/stop Solr Server"
 
 start() {
     if [ -f $PIDFILE ]; then
-        PID=`cat $PIDFILE`
-        echo $NAME already running: $PID
+        status -p $PIDFILE solr
+        if [ $? != 0 ]; then
+          echo Removing stale PID file: $PIDFILE and starting $NAME
+          rm -f $PIDFILE
+          start
+        fi
     else
         action "Starting ${NAME}: " daemon --pidfile $PIDFILE /var/lib/solr.start
     fi
