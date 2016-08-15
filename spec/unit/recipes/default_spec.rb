@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'solr::default' do
-  let(:chef_run) { ChefSpec::SoloRunner.new(step_into: ['ark']).converge(described_recipe) }
+  let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04', step_into: ['ark']).converge(described_recipe) }
 
   it 'includes the apt recipe' do
     expect(chef_run).to include_recipe('apt')
@@ -20,7 +20,7 @@ describe 'solr::default' do
   end
 
   it 'renders the start script' do
-    expect(chef_run).to create_template('/var/lib/solr.start')
+    expect(chef_run).to_not create_template('/var/lib/solr.start')
   end
 
   it 'renders the init script' do
@@ -33,6 +33,14 @@ describe 'solr::default' do
 
   it 'starts the service' do
     expect(chef_run).to start_service('solr')
+  end
+
+  context 'centos' do
+    let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'centos', version: '7.0', step_into: ['ark']).converge(described_recipe) }
+
+    it 'renders the start script' do
+      expect(chef_run).to create_template('/var/lib/solr.start')
+    end
   end
 
   context 'no java' do
