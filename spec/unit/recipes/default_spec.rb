@@ -45,9 +45,9 @@ describe 'solr::default' do
 
   context 'no java' do
     let(:chef_run) do
-      runner = ChefSpec::SoloRunner.new
-      runner.node.set['solr']['install_java'] = false
-      runner.converge(described_recipe)
+      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04') do |node, _server|
+        node.normal['solr']['install_java'] = false
+      end.converge(described_recipe)
     end
 
     it 'should not include the apt recipe' do
